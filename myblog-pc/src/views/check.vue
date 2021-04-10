@@ -6,7 +6,7 @@
       <input type="text" v-model="title" placeholder="输入一个文章标题" />搜索🔍
     </div>
     <div class="blog-list">
-      <div class="blog" v-for="item in blogList" :key="item.blog_id">
+      <div class="blog" v-for="item in blogList" :key="item.blog_id" >
         <h3 class="blog-title">
           <router-link class="rout"  :to="{ path: '/blog/Detail/' + item.blog_id }">{{
             item.title
@@ -14,7 +14,7 @@
         </h3>
         <span class="post-time">yan / {{ item.post_time }}</span>
       </div>
-      <p> {{warn}} </p>
+      <p v-if="blogList==''"> {{warn}} </p>
     </div>
     <div class="footer">
       <div>
@@ -84,7 +84,7 @@ input {
 }
 .footer {
   color: #afaeae;
-  position: absolute;
+  position: fixed;
   bottom: 150px;
   left: 600px;
 }

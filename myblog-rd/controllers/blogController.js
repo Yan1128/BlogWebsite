@@ -63,12 +63,16 @@ module.exports = {
       blogInfo.comments = [];
       for (let i = 0; i < results.length; i++) {
         let obj = results[i];
-        blogInfo.comments.push({
-          comm_id: obj.comm_id,
-          comm_content: obj.comm_content,
-          comm_post_time: obj.comm_post_time,
-          username: obj.username
-        });
+        if(obj.comm_id!=null){
+          let time= await utils.formatTime(obj.comm_post_time);
+          blogInfo.comments.push({
+            comm_id: obj.comm_id,
+            comm_content: obj.comm_content,
+            // comm_post_time: obj.comm_post_time,
+            comm_post_time: time,
+            username: obj.username
+          });
+        }
       }
       ctx.body = {
         state: "success",
@@ -76,6 +80,15 @@ module.exports = {
         postTime,
       };
     }
+  },
+  async delComment(ctx) {
+    let { blog_id, user_id,comm_id} = ctx.query;
+    let results = await model.delCommentById({blog_id, user_id,comm_id});
+    console.log(results);
+    ctx.body = {
+      state: "success",
+      results
+    };
   },
   async postBlog(ctx) {
     let { title, content, userId } = ctx.request.body;
@@ -90,8 +103,6 @@ module.exports = {
         state: "fail"
       };
     }
-
-
   },
   async postComment(ctx) {
     let { blog_id, content, user_id } = ctx.request.body;
@@ -111,6 +122,15 @@ module.exports = {
     let results = await model.updataBlogListDel(blog_id);
     ctx.body = {
       state: "success",
+    };
+  },
+  async changeBlog(ctx) {
+    // console.log( ctx.request.body);
+    let {blog_id, title, content } = ctx.request.body;
+    let results = await model.updataBlog({ blog_id, title, content });
+    ctx.body = {
+      state: "success",
+      results
     };
   },
   async regainList(ctx) {

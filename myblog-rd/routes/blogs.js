@@ -13,11 +13,15 @@ router.get("/myBlogList",verifyToken,controller.myBlogList);
 
 router.get("/detail",controller.getBlogDetail);
 
+router.get("/delComment",controller.delComment);
+
 router.post("/postBlog",controller.postBlog);
 
 router.post("/postComment",controller.postComment);
 
 router.get("/changelist",controller.changelist);
+
+router.post("/changeBlog",controller.changeBlog);
 
 router.get("/regainList",controller.regainList);
 

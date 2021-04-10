@@ -69,6 +69,13 @@ export const constantRoutes = [
         meta: { title: '文章列表', icon: 'table' }
       },
       {
+        path: '/upBlog/:blog_id',
+        name: 'UpBlog',
+        component: () => import('@/views/upBlog/index'),
+        meta: { title: '文章修改' },
+        hidden: true
+      },
+      {
         path: 'postBlog',
         name: 'PostBlog',
         component: () => import('@/views/postBlog/index'),

@@ -1,41 +1,52 @@
 <template>
   <div class="app-container">
-    <el-table
-      :data="List"
-      border
-      fit
-      highlight-current-row
-    >
-      <el-table-column align="center" label="序号" width="95">
+    <el-table :data="List" border fit highlight-current-row>
+      <el-table-column align="center" label="序号" width="95" height="20">
         <template slot-scope="scope">
-          {{ scope.$index+1}}
+          {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="文章编号" width="95">
+      <el-table-column label="文章编号" width="95" height="20">
         <template slot-scope="scope">
           {{ scope.row.blog_id }}
         </template>
       </el-table-column>
-      <el-table-column label="文章标题"  align="center">
+      <el-table-column label="文章标题" align="center" height="20">
         <template slot-scope="scope">
           <span>{{ scope.row.title }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="文章内容" align="center">
+      <el-table-column label="文章内容" align="center" height="20">
         <template slot-scope="scope">
           {{ scope.row.content }}
         </template>
       </el-table-column>
-      
-      <el-table-column label="发表时间"  align="center">
+
+      <el-table-column label="发表时间" align="center" height="20">
         <template slot-scope="scope">
           {{ scope.row.post_time }}
         </template>
       </el-table-column>
-       <el-table-column label="文章管理"  align="center" class-name="small-padding fixed-width">
+      <el-table-column
+        label="文章管理"
+        align="center"
+        class-name="small-padding fixed-width"
+        height="20"
+      >
         <template slot-scope="scope">
           <!-- <el-button size="mini" type="primary" >编辑</el-button> -->
-         <el-button size="mini" type="danger" @click="delpro(scope.row.blog_id)">删除</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="delpro(scope.row.blog_id)"
+            >删除</el-button
+          >
+          <el-button
+            size="mini"
+            type="success"
+            @click="uppro(scope.row.blog_id)"
+            >修改</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -43,41 +54,41 @@
 </template>
 
 <script>
-
 export default {
-
   data() {
     return {
-      List:[],
-      listLoading: true
-    }
+      List: [],
+      listLoading: true,
+    };
   },
   created() {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData() {
       this.listLoading = true;
-      this.axios
-      .get("http://localhost:3000/blogs/list")
-      .then((res) => {
-          this.List = res.data.results;
+      this.axios.get("http://localhost:3000/blogs/list").then((res) => {
+        this.List = res.data.results;
       });
     },
-    delpro(id){
+    delpro(id) {
       this.listLoading = true;
       this.axios
-      .get("http://localhost:3000/blogs/changelist",{
-         params: {
+        .get("http://localhost:3000/blogs/changelist", {
+          params: {
             blog_id: id,
           },
-      })
-      .then((res) => {
-        if(res.data.state=="success"){
-          this.fetchData()
-        }
-      });
-    }
-  }
-}
+        })
+        .then((res) => {
+          if (res.data.state == "success") {
+            this.fetchData();
+          }
+        });
+    },
+    uppro(id) {
+      this.listLoading = true;
+      this.$router.push("/upBlog/" + id);
+    },
+  },
+};
 </script>

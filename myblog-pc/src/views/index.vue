@@ -1,17 +1,19 @@
 <template>
-    <div class="container">
-      <CommonHeader />
-      <div class="blog-list">
-        <div class="blog" v-for="item in List" :key="item.blog_id">
-          <h3 class="blog-title">
-            <router-link class="rout" :to="{ path: '/blog/Detail/' + item.blog_id }">{{
-              item.title
-            }}</router-link>
-          </h3>
-          <p> yan / {{ item.post_time }}</p>
-        </div>
+  <div class="container">
+    <CommonHeader />
+    <div class="blog-list">
+      <div class="blog" v-for="item in List" :key="item.blog_id">
+        <h3 class="blog-title">
+          <router-link
+            class="rout"
+            :to="{ path: '/blog/Detail/' + item.blog_id }"
+            >{{ item.title }}</router-link
+          >
+        </h3>
+        <p>yan / {{ item.post_time }}</p>
       </div>
     </div>
+  </div>
 </template>
 <script>
 import CommonHeader from "../components/CommonHeader.vue";
@@ -19,6 +21,7 @@ export default {
   data() {
     return {
       List: [],
+      value: new Date(),
     };
   },
 
@@ -35,9 +38,8 @@ export default {
         if (state == "auth-fail") {
           alert("请求未授权-then!");
         } else if (state == "success") {
-          let { results} = res.data;
+          let { results } = res.data;
           this.List = results;
-
         }
       });
     },
@@ -56,7 +58,7 @@ export default {
   background: rgb(247, 216, 220);
   padding: 20px 0;
   margin: 10px 50px;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   float: left;
 }
 .blog-title,
@@ -64,10 +66,11 @@ export default {
 .post-time {
   margin: 20px 0;
 }
-.rout{
+.rout {
   color: #000;
 }
-.rout:hover{
+.rout:hover {
   color: rgb(144, 141, 233);
 }
+
 </style>

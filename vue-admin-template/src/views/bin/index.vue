@@ -74,6 +74,10 @@ export default {
       })
       .then((res) => {
         if(res.data.state=="success"){
+           this.$message({
+              message: "恢复成功！",
+              type: "success",
+            });
           this.$router.push("/example/blogList");
         }
       });

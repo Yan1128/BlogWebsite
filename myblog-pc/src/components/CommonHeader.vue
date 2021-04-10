@@ -8,9 +8,13 @@
           <!-- <a class="nav" href="/blog/post">发表文章</a>
           <a class="nav" href="/myblog">我的文章</a> -->
           <a class="nav" href="/check">查询博客</a>
-          <div class="exit">
-          {{  this.user.username }} |
+          <div class="exit rignt" v-if="this.user!=null">
+            {{  this.user.username }} |
           <a href="" @click="exit">退出</a>
+          </div>
+          <div class="login rignt" v-else>
+            <a href="/login" >登录</a> |
+            <a href="/regist" >注册</a>
           </div>
         </div> 
     </div>
@@ -91,7 +95,7 @@ p{
   color: #000;
  
 }
-.exit{
+.rignt{
   position: absolute;
   right: 20px;
   color: #000;
